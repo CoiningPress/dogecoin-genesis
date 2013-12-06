@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Copyright (c) 2011-2012 Litecoin Developers
-// Copyright (c) 2013 Bells Developers
+// Copyright (c) 2013 DogeCoin Developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -27,7 +27,7 @@ namespace Checkpoints
 	// no checkpoint now, can be added in later releases
     static MapCheckpoints mapCheckpoints =
             boost::assign::map_list_of
-            (  1, uint256("0xc46e3d7f70c0ef730ae2b2963b7c0abf711526bce84f390d4e0be24e9650b557"))
+            (  0, hashGenesisBlockOfficial )
 			;
 
 

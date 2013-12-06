@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Copyright (c) 2011-2012 Litecoin Developers
-// Copyright (c) 2013 Bells Developers
+// Copyright (c) 2013 DogeCoin Developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -33,8 +33,8 @@ unsigned int nTransactionsUpdated = 0;
 
 map<uint256, CBlockIndex*> mapBlockIndex;
 
-uint256 hashGenesisBlock("0xc46e3d7f70c0ef730ae2b2963b7c0abf711526bce84f390d4e0be24e9650b557");
-static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // Bells: starting difficulty is 1 / 2^12
+uint256 hashGenesisBlock = hashGenesisBlockOfficial;
+static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // DogeCoin: starting difficulty is 1 / 2^12
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
 CBigNum bnBestChainWork = 0;
@@ -54,7 +54,7 @@ map<uint256, map<uint256, CDataStream*> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Bells Signed Message:\n";
+const string strMessageMagic = "DogeCoin Signed Message:\n";
 
 double dHashesPerSec;
 int64 nHPSTimerStart;
@@ -841,41 +841,116 @@ int static generateMTRandom(unsigned int s, int range)
 
 int64 static GetBlockValue(int nHeight, int64 nFees, uint256 prevHash)
 {
-    int64 nSubsidy = 2 * COIN;
-
-    if(nHeight == 1) {nSubsidy = 2000000 * COIN;}
-    
-    else if(nHeight < 64800)
-    
-    {int rand = generateMTRandom(nHeight, 1000);
-		if(rand >= 990){nSubsidy = 10000 * COIN;}
-        else if (rand >= 950){nSubsidy = 1000 * COIN;}
-        else if (rand >= 860){nSubsidy = 500 * COIN;}
-        else if (rand <= 859){nSubsidy = 100 * COIN;}
-    }
-	else if(nHeight < 129600)
-	 {int rand = generateMTRandom(nHeight, 1000);
-		if(rand >= 990){nSubsidy = 5000 * COIN;}
-        else if (rand >= 950){nSubsidy = 500 * COIN;}
-        else if (rand >= 860){nSubsidy = 250 * COIN;}
-        else if (rand <= 859){nSubsidy = 50 * COIN;}
-    }
-    else if(nHeight < 259200)
-	 {int rand = generateMTRandom(nHeight, 1000);
-		if(rand >= 990){nSubsidy = 100 * COIN;}
-        else if (rand >= 950){nSubsidy = 50 * COIN;}
-        else if (rand >= 860){nSubsidy = 25 * COIN;}
-        else if (rand <= 859){nSubsidy = 5 * COIN;}
-    }
-	else {nSubsidy = 2 * COIN;}
-	
+        int64 nSubsidy = 10000 * COIN;
+         
+        std::string cseed_str = prevHash.ToString().substr(7,7);
+        const char* cseed = cseed_str.c_str();
+        long seed = hex2long(cseed);
+        int rand = generateMTRandom(seed, 800000);
+        int rand1 = 0;
+        int rand2 = 0;
+        int rand3 = 0;
+        int rand4 = 0;
+        int rand5 = 0;
+        int rand6 = 0;
+        int rand7 = 0;
+ 
+       
+        if(nHeight < 80000)    
+        {
+                nSubsidy = rand * COIN;
+        }
+ 
+ 
+ 
+        else if(nHeight < 160000)      
+        {
+                cseed_str = prevHash.ToString().substr(7,7);
+                cseed = cseed_str.c_str();
+                seed = hex2long(cseed);
+                rand1 = generateMTRandom(seed, 400000);
+                if(rand1 < 1000)
+                nSubsidy = rand1 + 1000 * COIN;
+                else if(rand1 > 1000)
+                nSubsidy = rand1 * COIN;
+        }
+        else if(nHeight < 240000)      
+        {
+                cseed_str = prevHash.ToString().substr(6,7);
+                cseed = cseed_str.c_str();
+                seed = hex2long(cseed);
+                rand2 = generateMTRandom(seed, 300000);
+                if(rand2 < 2000)
+                nSubsidy = rand2 + 2000 * COIN;
+                else if(rand2 > 2000)
+                nSubsidy = rand2 * COIN;
+        }
+        else if(nHeight < 320000)      
+        {
+                cseed_str = prevHash.ToString().substr(7,7);
+                cseed = cseed_str.c_str();
+                seed = hex2long(cseed);
+                rand3 = generateMTRandom(seed, 200000);
+                if(rand3 < 3000)
+                nSubsidy = rand3 + 3000 * COIN;
+                else if(rand3 > 3000)
+                nSubsidy = rand3 * COIN;
+        }
+        else if(nHeight < 400000)      
+        {
+                cseed_str = prevHash.ToString().substr(7,7);
+                cseed = cseed_str.c_str();
+                seed = hex2long(cseed);
+                rand4 = generateMTRandom(seed, 100000);
+                if(rand4 < 4000)
+                nSubsidy = rand4 + 4000 * COIN;
+                else if(rand4 > 4000)
+                nSubsidy = rand4 * COIN;
+        }
+        else if(nHeight < 480000)      
+        {
+                cseed_str = prevHash.ToString().substr(6,7);
+                cseed = cseed_str.c_str();
+                seed = hex2long(cseed);
+                rand5 = generateMTRandom(seed, 50000);
+                if(rand5 < 5000)
+                nSubsidy = rand5 + 5000 * COIN;
+                else if(rand5 > 5000)
+                nSubsidy = rand5 * COIN;
+        }
+        else if(nHeight < 560000)      
+        {
+                cseed_str = prevHash.ToString().substr(7,7);
+                cseed = cseed_str.c_str();
+                seed = hex2long(cseed);
+                rand6 = generateMTRandom(seed, 25000);
+                if(rand6 < 6000)
+                nSubsidy = rand6 + 6000 * COIN;
+                else if(rand6 > 6000)
+                nSubsidy = rand6 * COIN;
+        }
+        else if(nHeight < 600000)      
+        {
+                cseed_str = prevHash.ToString().substr(7,7);
+                cseed = cseed_str.c_str();
+                seed = hex2long(cseed);
+                rand1 = generateMTRandom(seed, 14000);
+                if(rand7 < 1000)
+                nSubsidy = rand7 + 7000 * COIN;
+                else if(rand7 > 7000)
+                nSubsidy = rand7 * COIN;
+        }
+ 
+ 
+         nSubsidy >>= (nHeight / 1000000);
+ 
     return nSubsidy + nFees;
 }
 
 
 
-static const int64 nTargetTimespan = 4 * 60 * 60; // Bells: every 4 hours
-static const int64 nTargetSpacing = 60; // Bells: 1 minutes
+static const int64 nTargetTimespan = 4 * 60 * 60; // DogeCoin: every 4 hours
+static const int64 nTargetSpacing = 60; // DogeCoin: 1 minutes
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
 //
@@ -934,7 +1009,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
         return pindexLast->nBits;
     }
 
-    // Bells: This fixes an issue where a 51% attack can change difficulty at will.
+    // DogeCoin: This fixes an issue where a 51% attack can change difficulty at will.
     // Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
     int blockstogoback = nInterval-1;
     if ((pindexLast->nHeight+1) != nInterval)
@@ -1224,7 +1299,7 @@ bool CTransaction::ConnectInputs(MapPrevTx inputs,
 {
     // Take over previous transactions' spent pointers
     // fBlock is true when this is called from AcceptBlock when a new best-block is added to the blockchain
-    // fMiner is true when called from the internal bells miner
+    // fMiner is true when called from the internal dogecoin miner
     // ... both are false when called from CTransaction::AcceptToMemoryPool
     if (!IsCoinBase())
     {
@@ -1977,7 +2052,7 @@ bool CheckDiskSpace(uint64 nAdditionalBytes)
         string strMessage = _("Warning: Disk space is low");
         strMiscWarning = strMessage;
         printf("*** %s\n", strMessage.c_str());
-        uiInterface.ThreadSafeMessageBox(strMessage, "Bells", CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+        uiInterface.ThreadSafeMessageBox(strMessage, "DogeCoin", CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
         StartShutdown();
         return false;
     }
@@ -2033,7 +2108,7 @@ bool LoadBlockIndex(bool fAllowNew)
         pchMessageStart[1] = 0xc1;
         pchMessageStart[2] = 0xb7;
         pchMessageStart[3] = 0xdc;
-        hashGenesisBlock = uint256("0x5d2fc8d1cb81c089c8dc7a71d755eb2589a7973471598dc513a599e3f0662eaf");
+        hashGenesisBlock = uint256("0x");
     }
 
     //
@@ -2063,7 +2138,7 @@ bool LoadBlockIndex(bool fAllowNew)
 		//   vMerkleTree: 6f80efd038 
 
         // Genesis block
-        const char* pszTimestamp = "Nintondo!";
+        const char* pszTimestamp = "Nintondo";
         CTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -2075,14 +2150,14 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1369197950;
+        block.nTime    = 1386325540;
         block.nBits    = 0x1e0ffff0;
-        block.nNonce   = 1197600;
+        block.nNonce   = 99943;
 
 
         if (fTestNet)
         {
-            block.nTime    = 1361718171;
+            block.nTime    = 1386325540;
             block.nNonce   = 0;
         }
 
@@ -2090,7 +2165,37 @@ bool LoadBlockIndex(bool fAllowNew)
         printf("block.GetHash() = %s\n", block.GetHash().ToString().c_str());
         printf("hashGenesisBlock = %s\n", hashGenesisBlock.ToString().c_str());
         printf("block.hashMerkleRoot = %s\n", block.hashMerkleRoot.ToString().c_str());
-        assert(block.hashMerkleRoot == uint256("0x12f695439878919a6a68a55cf39bc25e0a55984fa89036b69c7458e1d240632e"));
+        assert(block.hashMerkleRoot == uint256("0x5b2a3f53f605d62c53e62932dac6925e3d74afa5a4b459745c36d42d0ed26a69"));
+
+if (true && block.GetHash() != hashGenesisBlock)
+        {
+            printf("Searching for genesis block...\n");
+            // This will figure out a valid hash and Nonce if you're
+            // creating a different genesis block:
+            uint256 hashTarget = CBigNum().SetCompact(block.nBits).getuint256();
+            uint256 thash;
+            char scratchpad[SCRYPT_SCRATCHPAD_SIZE];
+
+            loop
+            {
+                scrypt_1024_1_1_256_sp(BEGIN(block.nVersion), BEGIN(thash), scratchpad);
+                if (thash <= hashTarget)
+                    break;
+                if ((block.nNonce & 0xFFF) == 0)
+                {
+                    printf("nonce %08X: hash = %s (target = %s)\n", block.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
+                }
+                ++block.nNonce;
+                if (block.nNonce == 0)
+                {
+                    printf("NONCE WRAPPED, incrementing time\n");
+                    ++block.nTime;
+                }
+            }
+            printf("block.nTime = %u \n", block.nTime);
+            printf("block.nNonce = %u \n", block.nNonce);
+            printf("block.GetHash = %s\n", block.GetHash().ToString().c_str());
+        }
 
         // Start new block file
         unsigned int nFile;
@@ -2402,7 +2507,7 @@ bool static AlreadyHave(CTxDB& txdb, const CInv& inv)
 // The message start string is designed to be unlikely to occur in normal data.
 // The characters are rarely used upper ascii, not valid as UTF-8, and produce
 // a large 4-byte int at any alignment.
-unsigned char pchMessageStart[4] = { 0xfb, 0xc0, 0xb6, 0xdb }; // Bells: increase each by adding 2 to bitcoin's value.
+unsigned char pchMessageStart[4] = { 0xc0, 0xc0, 0xc0, 0xc0 }; 
 
 
 bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
@@ -3490,7 +3595,7 @@ CBlock* CreateNewBlock(CReserveKey& reservekey)
                 continue;
 
             // Transaction fee required depends on block size
-            // Bellsd: Reduce the exempted free transactions to 500 bytes (from Bitcoin's 3000 bytes)
+            // DogeCoind: Reduce the exempted free transactions to 500 bytes (from Bitcoin's 3000 bytes)
             bool fAllowFree = (nBlockSize + nTxSize < 1500 || CTransaction::AllowFree(dPriority));
             int64 nMinFee = tx.GetMinFee(nBlockSize, fAllowFree, GMF_BLOCK);
 

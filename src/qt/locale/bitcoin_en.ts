@@ -264,7 +264,7 @@ Are you sure you wish to encrypt your wallet?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Receive coins</source>
+        <source>&amp;Much receive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
